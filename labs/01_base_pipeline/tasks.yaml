@@ -16,4 +16,24 @@ spec:
         #!/usr/bin/env node
         const fname = "$(params.name)"
         console.log(`hello ${fname}!`)                                                                                                                              
-      
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: checkout
+spec:
+  params :
+    - name: repo-url
+      type: string
+      description: The URL of the git repo to clone
+    
+    - name: branch
+      type: string
+      description: The branch to clone 
+
+  steps:
+    - name: checkout
+      image: bitnami/git:latest
+      script: |
+        #!/usr/bin/env bash
+        git clone --branch "$(params.branch)" "$(params.repo-url)" 
