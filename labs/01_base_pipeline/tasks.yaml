@@ -4,7 +4,10 @@ metadata:
   name: hello-world
 spec:
   steps:
-    - name: echo
-      image: alpine:3
-      command: [/bin/echo]
-      args: ["Hello World!"]
+    - name: greeting
+      image: node:18
+      script: |
+        #!/usr/bin/env node
+        const args = process.argv.slice(2)
+        console.log(args.join(" "))                                                                                                                              
+      args: ["Hello", "World!"]
