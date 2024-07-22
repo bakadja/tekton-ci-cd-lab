@@ -3,7 +3,14 @@ kind: Pipeline
 metadata:
   name: hello-pipeline
 spec:
+  params:
+   - name : name
+     
   tasks:
     - name: hello
       taskRef:
         name: hello-world
+
+      params: 
+       - name: name
+         value: "$(params.name)"
